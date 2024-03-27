@@ -1,5 +1,6 @@
 import yaml
 from tabulate import tabulate
+import pandas as pd
 
 
 class Serializer:
@@ -41,25 +42,10 @@ class Serializer:
                 else:
                     self.max_distances[i][key] = round(abs(self.planet_dict[key] + self.planet_dict[i]), 2)
 
-    def generate_table(self, data, header, filename) -> None:
-        # Extract planets for table headers
-        planets = list(data.keys())
-
-        # Create headers for the table
-        headers = [header] + planets
-
-        # Create data rows for the table
-        rows = []
-        for planet1 in planets:
-            row = [planet1]
-            for planet2 in planets:
-                row.append(data[planet1][planet2])
-            rows.append(row)
-
-        # Generate the table
-        self.table = tabulate(rows, headers=headers, tablefmt="github")
-        with open(filename, 'w') as file:
-            file.write(self.table)
+    def generate_xlsx(self, name, data) -> None:
+        print(data)
+        df = pd.DataFrame(data)
+        df.to_excel(name)
 
     def run(self):
         print("Processing data!")
@@ -68,8 +54,10 @@ class Serializer:
         self.calc_max_distances()
 
         print("Generating tables!")
-        self.generate_table(self.min_distances, "Min", "min_table.txt")
-        self.generate_table(self.max_distances, "Max", "max_table.txt")
+        # self.generate_table(self.min_distances, "Min", "min_table.txt")
+        # self.generate_table(self.max_distances, "Max", "max_table.txt")
+        self.generate_xlsx("max_distances.xlsx", self.max_distances)
+        self.generate_xlsx("min_distances.xlsx", self.min_distances)
 
         print("Finished!")
 
@@ -77,3 +65,4 @@ class Serializer:
 if __name__ == "__main__":
     serializer = Serializer("./solar_system.yaml")
     serializer.run()
+
