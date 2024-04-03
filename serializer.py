@@ -42,8 +42,7 @@ class Serializer:
                 else:
                     self.max_distances[i][key] = round(abs(self.planet_dict[key] + self.planet_dict[i]), 2)
 
-    def generate_xlsx(self, name, data) -> None:
-        print(data)
+    def generate_xlsx(self, name, data) -> one:
         df = pd.DataFrame(data)
         df.to_excel(name)
 
@@ -54,8 +53,6 @@ class Serializer:
         self.calc_max_distances()
 
         print("Generating tables!")
-        # self.generate_table(self.min_distances, "Min", "min_table.txt")
-        # self.generate_table(self.max_distances, "Max", "max_table.txt")
         self.generate_xlsx("max_distances.xlsx", self.max_distances)
         self.generate_xlsx("min_distances.xlsx", self.min_distances)
 
