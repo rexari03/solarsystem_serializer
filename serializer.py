@@ -21,7 +21,6 @@ class Serializer:
             planet_name = list(i.keys())[0]
             distance = i[planet_name]
             new_dict[planet_name] = distance
-
         self.planet_dict = new_dict
 
     def calc_min_distances(self):
@@ -41,7 +40,7 @@ class Serializer:
                 else:
                     self.max_distances[i][key] = round(abs(self.planet_dict[key] + self.planet_dict[i]), 2)
 
-    def generate_xlsx(self, name, data) -> one:
+    def generate_xlsx(self, name, data):
         df = pd.DataFrame(data)
         df.to_excel(name)
 
