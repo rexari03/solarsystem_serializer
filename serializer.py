@@ -1,5 +1,6 @@
 import yaml
 from tabulate import tabulate
+import pandas as pd
 
 
 class Serializer:
@@ -61,6 +62,11 @@ class Serializer:
         with open(filename, 'w') as file:
             file.write(self.table)
 
+    def txt_table(self, data, filename):
+        df = pd.DataFrame(data)
+        with open(filename, 'w') as file:
+            file.write(df.to_string())
+
     def run(self):
         print("Processing data!")
         self.extract_solar_system()
@@ -70,6 +76,7 @@ class Serializer:
         print("Generating tables!")
         self.generate_table(self.min_distances, "Min", "min_table.txt")
         self.generate_table(self.max_distances, "Max", "max_table.txt")
+        self.txt_table(self.max_distances, "max_table1.txt")
 
         print("Finished!")
 
