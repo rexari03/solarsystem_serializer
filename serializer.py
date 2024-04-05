@@ -9,7 +9,6 @@ class Serializer:
         self.planet_dict = {}
         self.min_distances = {}
         self.max_distances = {}
-        self.table = []
 
     def extract_solar_system(self):
         with open(self.path, 'r') as yaml_file:
